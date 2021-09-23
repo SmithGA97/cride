@@ -3,7 +3,8 @@
 #Django
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models.fields import CharField
+from django.core.validators import RegexValidator
+
 
 #Utilities
 from cride.utils.models import CRideModel
@@ -21,8 +22,11 @@ class User(CRideModel, AbstractUser):
             'unique': 'A user with that email alredy exists'
         }
     )
-
-    phone_number = CharField(
+    """ phone_regex = RegexValidator(
+        regex= r'\+?1?\d{9,15}$',
+        message='Phone number must be entered in the format: +999999998. Up to 15 digits allowed.'
+    ) """
+    phone_number = models.CharField(
         max_length=17,
         blank=True
     )
@@ -43,3 +47,10 @@ class User(CRideModel, AbstractUser):
         default=True,
         help_text='Set to true when the user have verified email address'
     )
+    def __str__(self):
+        """Return username"""
+        return self.username
+
+    def get_short_name(self):
+        """Return username"""
+        return self.username
