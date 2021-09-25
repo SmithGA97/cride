@@ -22,13 +22,14 @@ class User(CRideModel, AbstractUser):
             'unique': 'A user with that email alredy exists'
         }
     )
-    """ phone_regex = RegexValidator(
+    phone_regex = RegexValidator(
         regex= r'\+?1?\d{9,15}$',
         message='Phone number must be entered in the format: +999999998. Up to 15 digits allowed.'
-    ) """
+    )
     phone_number = models.CharField(
         max_length=17,
-        blank=True
+        blank=True,
+        validators=[phone_regex]
     )
     USERNAME_FIELD= 'email'
     REQUIRED_FIELDS= ['username', 'first_name', 'last_name']
