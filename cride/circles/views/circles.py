@@ -14,6 +14,11 @@ from cride.circles.serializers import CircleModelSerializer
 #Models
 from cride.circles.models import Circle,Membership
 
+class UserViewSet(viewsets.GenericViewSet):
+    """User viewset
+    Handle sign up, login and account verification"""
+
+
 class CircleViewSet(mixins.CreateModelMixin,
                    mixins.RetrieveModelMixin,
                    mixins.UpdateModelMixin,
@@ -22,6 +27,8 @@ class CircleViewSet(mixins.CreateModelMixin,
     """Circle view set"""
 
     serializer_class= CircleModelSerializer
+    lookup_field = 'slug_name'
+
     
 
     def get_queryset(self):
